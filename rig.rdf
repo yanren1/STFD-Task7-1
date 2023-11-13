@@ -1,7 +1,8 @@
-@prefix ex: <http://example.org#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sswap: <http://sswapmeet.sswap.info/sswap/> .
+@prefix resource: <http://example.org/cootageService> .
+@prefix cottage: <http://example.org/cottage> .
 
 resource:getAvailableCottage rdf:type sswap:Resource, cottage:CottageCheckService;
     sswap:providedBy resource:resourceProvider;
@@ -11,27 +12,26 @@ resource:getAvailableCottage rdf:type sswap:Resource, cottage:CottageCheckServic
         rdf:type sswap:Graph;
 
         sswap:hasMapping[
-            rdf:type sswap:Subject,
+            rdf:type sswap:Subject,cottage:cottageInfo;
             cottage:BookerName "booker0";
             cottage:start_date "2023-03-15";
             cottage:num_days "2";
             cottage:max_date_shift "0";
             cottage:num_people "2";
             cottage:num_bedrooms "2";
-            cottage:max_lake_distance "20";
             cottage:city "Boston";
+            cottage:max_lake_distance "20";
             cottage:max_city_distance "250";
 
             sswap:mapsTo [
-                rdf:type sswap:Object,
-                    cottage:cottageName "";
-                    cottage:address "";
-                    cottage:nearestCity "";
-                    cottage:distanceToCity "";
-                    cottage:distanceToLake "";
-
-                    cottage:availableDays "" ;
-                    cottage:bookStartDate "";
+                rdf:type sswap:Object,cottage:offers;
+                    cottage:cottageName ""^^xsd:string;
+                    cottage:address ""^^xsd:string;
+                    cottage:nearestCity ""^^xsd:string;
+                    cottage:distanceToCity ""^^xsd:integer;
+                    cottage:distanceToLake ""^^xsd:integer;
+                    cottage:availableDays ""^^xsd:integer ;
+                    cottage:bookStartDate ""^^xsd:dateTime;
             ]
         ]
     ]
@@ -46,16 +46,16 @@ resource:bookCottageService rdf:type sswap:Resource, cottage:CottageBookService;
         rdf:type sswap:Graph;
 
         sswap:hasMapping[
-            rdf:type sswap:Subject,
+            rdf:type sswap:Subject,cottage:bookerInfo;
             cottage:cottageName "Cottage2";
             cottage:bookStartDate "2023-03-15";
             cottage:bookEndDate "2023-03-17";
             cottage:BookNum "Cottage2--2023-03-15--2023-03-17";
 
             sswap:mapsTo [
-                rdf:type sswap:Object,
-                    cottage:book_status "";
-                    cottage:BookNum "";
+                rdf:type sswap:Object,cottage:bookingInfo;
+                    cottage:book_status ""^^xsd:integer;
+                    cottage:BookNum ""^^xsd:string;
 
             ]
         ]

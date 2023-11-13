@@ -1,7 +1,8 @@
-@prefix ex: <http://example.org#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix sswap: <http://sswapmeet.sswap.info/sswap/> .
+@prefix resource: <http://example.org/cotageServices> .
+@prefix cottage: <http://example.org/cottage> .
 
 resource:getAvailableCottage rdf:type sswap:Resource, cottage:CottageCheckService;
     sswap:providedBy resource:resourceProvider;
@@ -11,27 +12,30 @@ resource:getAvailableCottage rdf:type sswap:Resource, cottage:CottageCheckServic
         rdf:type sswap:Graph;
 
         sswap:hasMapping[
-            rdf:type sswap:Subject,
-            cottage:BookerName "";
-            cottage:start_date "";
-            cottage:num_days "";
-            cottage:max_date_shift "";
-            cottage:num_people "";
-            cottage:num_bedrooms "";
-            cottage:max_lake_distance "";
-            cottage:city "";
-            cottage:max_city_distance "";
+            rdf:type sswap:Subject, cottage:CottageInfo;
+
+            cottage:BookerName ""^^xsd:string;
+            cottage:start_date ""^^xsd:dateTime;
+            cottage:num_days ""^^xsd:integer;
+            cottage:max_date_shift ""^^xsd:integer;
+            cottage:num_people ""^^xsd:integer;
+            cottage:num_bedrooms ""^^xsd:integer;
+            cottage:city ""^^xsd:string;
+            cottage:max_lake_distance ""^^xsd:integer;
+            cottage:max_city_distance ""^^xsd:integer;
 
             sswap:mapsTo [
-                rdf:type sswap:Object,
-                    cottage:cottageName "";
-                    cottage:address "";
-                    cottage:nearestCity "";
-                    cottage:distanceToCity "";
-                    cottage:distanceToLake "";
-                    cottage:availableDays "" ;
-                    cottage:bookStartDate "";
+                rdf:type sswap:Object, cottage:Offers;
+
+                    cottage:cottageName ""^^xsd:string;
+                    cottage:address ""^^xsd:string;
+                    cottage:nearestCity ""^^xsd:string;
+                    cottage:distanceToCity ""^^xsd:integer;
+                    cottage:distanceToLake ""^^xsd:integer;
+                    cottage:availableDays ""^^xsd:integer ;
+                    cottage:bookStartDate ""^^xsd:dateTime;
             ]
+
         ]
     ]
 
@@ -45,16 +49,17 @@ resource:bookCottageService rdf:type sswap:Resource, cottage:CottageBookService;
         rdf:type sswap:Graph;
 
         sswap:hasMapping[
-            rdf:type sswap:Subject,
-            cottage:cottageName "";
-            cottage:bookStartDate "";
-            cottage:bookEndDate "";
-            cottage:BookNum "";
+            rdf:type sswap:Subject,cottage:BookerInfo;
+
+            cottage:cottageName ""^^xsd:string;
+            cottage:bookStartDate ""^^xsd:dateTime;
+            cottage:bookEndDate ""^^xsd:dateTime;
+            cottage:BookNum ""^^xsd:string;
 
             sswap:mapsTo [
-                rdf:type sswap:Object,
-                    cottage:book_status "";
-                    cottage:BookNum "";
+                rdf:type sswap:Object,cottage:bookingInfo;
+                    cottage:book_status ""^^xsd:integer;
+                    cottage:BookNum ""^^xsd:string;
 
             ]
         ]
